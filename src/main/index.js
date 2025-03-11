@@ -1,5 +1,8 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
+const charles = require('charlesbrain')
 const path = require('node:path');
+
+const Charles = new charles
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -37,6 +40,18 @@ app.whenReady().then(() => {
     }
   });
 });
+
+ipcMain.handle('get/zones', async (event, args) => {
+  console.log('received zone request')
+  try {
+    const zones = await Charles.zones()
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+  return zones
+})
+
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits

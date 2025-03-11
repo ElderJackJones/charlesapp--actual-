@@ -63,13 +63,23 @@
                 </div>
             </div>
         </section>
-        <section class="section">
+        <section class="section" x-show="!$store.loginError">
             <p>
                 The following section requires the <strong>Messenger ID</strong> of your zone chats. 
                 (EX: https://www.messenger.com/t/<strong>9389411247744735</strong>)
             </p>
+            <hr />
         </section>
-        <div class="skeleton-block" x-show="$store.zones.length === 0"></div>
+        <div class="skeleton-block" x-show="$store.zones.length === 0 && !$store.loginError"></div>
+        <article class="message is-warning" x-show="$store.loginError" @hide="$el.style.display = 'none'" style="margin-top: 5%;">
+            <div class="message-header">
+                <p>Warning</p>
+                <button class="delete" aria-label="delete" @click="$dispatch('hide')"></button>
+              </div>
+              <div class="message-body">
+                To access zone data and update zone chats you must <strong>Log In</strong>. Fill out the form, log in, then reopen settings to update this information <em>before</em> sending a Charles message.
+              </div>
+        </article>
             <template x-for="zone in $store.zones">
                 <div class="field">
                     <label :for="zone" class="label" x-text="zone"></label>

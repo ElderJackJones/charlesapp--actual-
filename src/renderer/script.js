@@ -1,6 +1,9 @@
-document.addEventListener('alpine:init', () => {
+document.addEventListener('alpine:init', async () => {
     Alpine.store('zones', [])
-    setTimeout(() => {
-        Alpine.store('zones', ['Charleston', 'SML', 'etc'])
-    }, 10000)
+    const zones = await window.api.requestZones()
+    if (zones) {
+        Alpine.store('zones', zones)
+    } else {
+        Alpine.store('loginError', true)
+    }
 })
