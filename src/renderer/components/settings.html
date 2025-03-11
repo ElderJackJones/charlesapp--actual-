@@ -2,10 +2,10 @@
 <div class="modal" x-show="settings" :class="{'is-active': settings}" x-cloak x-transition x-data="{
     notification: { show: false, classes: 'notification is-danger' }, 
     showNotification(msg) {
-        this.notification.innerHTML = msg
+        this.notification.html = msg;
         this.notification.show = true;
-        setTimeout(() => this.notification.show = false, 5000); // Auto-hide after 3 sec
-    }, 
+        setTimeout(() => this.notification.show = false, 5000); 
+    },
     username: '',
     userpassword: '',
     botmail: '',
@@ -18,8 +18,11 @@
     right: 10px;
     z-index: 1000;
     max-width: 300px;
-    " x-show="notification.show" :class="notification.classes">
-      </div>
+    padding: 10px;
+    border-radius: 5px;
+" x-show="notification.show" :class="notification.classes">
+    <span x-html="notification.html"></span> <!-- Ensure text is shown -->
+</div>
 
     <div class="modal-content">
       <div class="card">
