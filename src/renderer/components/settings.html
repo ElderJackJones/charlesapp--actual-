@@ -69,8 +69,14 @@
                 (EX: https://www.messenger.com/t/<strong>9389411247744735</strong>)
             </p>
         </section>
-            <template>
-                
+        <div class="skeleton-block" x-show="$store.zones.length === 0"></div>
+            <template x-for="zone in $store.zones">
+                <div class="field">
+                    <label :for="zone" class="label" x-text="zone"></label>
+                    <div class="control">
+                        <input type="text" class="input is-info">
+                    </div>
+                </div>
             </template>
         </div>
       </div>
