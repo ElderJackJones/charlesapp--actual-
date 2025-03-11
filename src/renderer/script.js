@@ -6,4 +6,24 @@ document.addEventListener('alpine:init', async () => {
     } else {
         Alpine.store('loginError', true)
     }
+
+    
 })
+
+const login = async (username, userpassword, botmail, botpass, $data) => {
+    console.log($data)
+    const userObj = {
+        username: username,
+        password: userpassword,
+        botname: botmail,
+        botpassword: botpass
+    }
+    const worked = await window.api.saveLogin(userObj)
+    if (worked) {
+        $data.notification.classes = 'notification is-success'
+        $data.showNotification('<strong>Login Saved!</strong>') 
+    } else {
+        $data.notification.classes = 'notification is-danger'
+        $data.showNotification('<strong>Login not saved due to error!</strong>') 
+    }
+}

@@ -43,13 +43,24 @@ app.whenReady().then(() => {
 
 ipcMain.handle('get/zones', async (event, args) => {
   console.log('received zone request')
+  let zones
   try {
-    const zones = await Charles.zones()
+    zones = await Charles.zones()
   } catch (e) {
     console.log(e)
     return false
   }
   return zones
+})
+
+ipcMain.handle('save/login', async (event, args) => {
+  try {
+    await Charles.createUser(args.username, args.password, args.botname, args.botpass)
+    return true
+  } catch (e) {
+    console.log('writing error: ', e)
+    return false
+  }
 })
 
 
