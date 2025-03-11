@@ -1,0 +1,14 @@
+<!-- requires an 'open' trigger in context -->
+<div class="modal" x-show="messageOpen" :class="{'is-active': messageOpen}" x-cloak x-transition>
+    <div class="modal-background" x-on:click="messageOpen = false"></div>
+    <div class="modal-content">
+      <article class="message" :class="modalColor">
+        <div class="message-header">
+          <p x-text="modalTitle"></p>
+          <button class="delete" x-on:click="messageOpen = false"></button>
+        </div>
+        <div class="message-body" x-text="modalMessage">
+        </div>
+      </article>
+    </div>
+  </div>
