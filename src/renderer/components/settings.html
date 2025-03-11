@@ -9,7 +9,8 @@
     username: '',
     userpassword: '',
     botmail: '',
-    botpass: ''}">
+    botpass: '',
+    zoneData: {}}">
     <div class="modal-background" x-on:click="settings = false" ></div>
 
     <div style="
@@ -90,7 +91,7 @@
                   <button class="button is-link" @click="login(username, userpassword, botmail, botpass, $data)">Submit</button>
                 </div>
                 <div class="control">
-                  <button class="button is-link is-light" >Cancel</button>
+                  <button class="button is-link is-light" @click="settings = false">Cancel</button>
                 </div>
               </div>
         </section>
@@ -115,7 +116,7 @@
                 <div class="field">
                     <label :for="zone" class="label" x-text="zone"></label>
                     <div class="control">
-                        <input type="text" class="input is-info">
+                        <input type="text" class="input is-info" x-model="zoneData">
                     </div>
                 </div>
             </template>
