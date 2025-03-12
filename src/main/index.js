@@ -55,7 +55,7 @@ ipcMain.handle('get/zones', async (event, args) => {
 
 ipcMain.handle('save/login', async (event, args) => {
   try {
-    await Charles.createUser(args.username, args.password, args.botname, args.botpass)
+    await Charles.createUser(args.username, args.password, args.botname, args.botpassword)
     return true
   } catch (e) {
     console.log('writing error: ', e)
@@ -76,7 +76,7 @@ ipcMain.handle('save/zones', async (event, args) => {
 ipcMain.handle('send/charles', async (event, args) => {
   try {
     const user = await Charles.user()
-    await Charles.message('123456', user.username, user.password)
+    await Charles.test('9430682700330560', '123456', user.username, user.password)
   } catch (e) {
     console.log(e)
   }
