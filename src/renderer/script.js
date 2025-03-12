@@ -28,13 +28,15 @@ const login = async (username, userpassword, botmail, botpass, $data) => {
     }
 }
 
-const sendZones = async (data) => {
+const sendZones = async (zones, $data) => {
     console.log('before success')
-    const success = await window.api.sendZones(data)
+    const success = await window.api.sendZones(zones)
     console.log('after success')
     if (success) {
-        return true
+        $data.notification.classes = 'notification is-success'
+        $data.showNotification('<strong>Charles is looking over your little ID eggs</strong>') 
     } else {
-        return false
+        $data.notification.classes = 'notification is-danger'
+        $data.showNotification("<strong>😱 #askedForAFish--gotASerpent </strong>") 
     }
 }
