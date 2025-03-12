@@ -63,6 +63,16 @@ ipcMain.handle('save/login', async (event, args) => {
   }
 })
 
+ipcMain.handle('save/zones', async (event, args) => {
+  try {
+    await Charles.saveConfig(args)
+    return true
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+})
+
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits

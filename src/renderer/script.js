@@ -27,3 +27,14 @@ const login = async (username, userpassword, botmail, botpass, $data) => {
         $data.showNotification('<strong>Login not saved due to error!</strong>') 
     }
 }
+
+const sendZones = async (data) => {
+    console.log('before success')
+    const success = await window.api.sendZones(data)
+    console.log('after success')
+    if (success) {
+        return true
+    } else {
+        return false
+    }
+}

@@ -4,7 +4,8 @@ const { ipcRenderer, contextBridge} = require('electron')
 
 const WINDOW_API = {
     requestZones: () => ipcRenderer.invoke('get/zones'),
-    saveLogin: (login) => ipcRenderer.invoke('save/login', login)
+    saveLogin: (login) => ipcRenderer.invoke('save/login', login),
+    sendZones: (zoneObj) => ipcRenderer.invoke('save/zones', zoneObj),
 }
 
 contextBridge.exposeInMainWorld('api', WINDOW_API)
