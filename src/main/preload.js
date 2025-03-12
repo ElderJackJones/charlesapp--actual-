@@ -6,6 +6,7 @@ const WINDOW_API = {
     requestZones: () => ipcRenderer.invoke('get/zones'),
     saveLogin: (login) => ipcRenderer.invoke('save/login', login),
     sendZones: (zoneObj) => ipcRenderer.invoke('save/zones', zoneObj),
+    charles: () => ipcRenderer.invoke('send/charles')
 }
 
 contextBridge.exposeInMainWorld('api', WINDOW_API)

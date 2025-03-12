@@ -40,3 +40,12 @@ const sendZones = async (zones, $data) => {
         $data.showNotification("<strong>😱 #askedForAFish--gotASerpent </strong>") 
     }
 }
+
+const charlesMessage = async () => {
+    try {
+        await window.api.charles()
+    } catch (e) {
+        console.log(e)
+    }
+    
+}
