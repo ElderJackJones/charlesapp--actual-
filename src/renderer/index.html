@@ -47,7 +47,23 @@
 
   </style>
 </head>
-<body>
+<body x-data="notification: { show: false, classes: 'notification is-danger' }, 
+showNotification(msg) {
+    this.notification.html = msg;
+    this.notification.show = true;
+    setTimeout(() => this.notification.show = false, 5000); 
+},">
+  <div style="
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+    max-width: 300px;
+    padding: 10px;
+    border-radius: 5px;
+" x-show="notification.show" :class="notification.classes">
+    <span x-html="notification.html"></span> <!-- Ensure text is shown -->
+</div>
   <section class="section">
     <div class="container">
       <div class="has-text-centered">
@@ -65,6 +81,7 @@
         testLoading: false,
         settings: false,
         loadingZones: false,
+        progressOpen: false,
       }" id="dataEnv">
       <div class="columns is-centered">
       <div class="column is-full" style="min-width: max-content;">
@@ -74,10 +91,11 @@
 
           <div x-html="(await axios.get('./components/modal.html')).data"></div>
           <div x-html="(await axios.get('./components/settings.html')).data"></div>
+          <div x-html="(await axios.get('./components/progressModal.html')).data"></div>
         
           <div class="level-item has-text-centered">
 
-            <button class=" button is-primary is-responsive " @click="messageOpen = true, 
+            <button class=" button is-primary is-responsive " @click="progressOpen = true, 
             messageLoading = true, 
             modalTitle = 'Message in Progress', 
             modalMessage = `Please don't close the app while this is loading...`,
@@ -96,7 +114,7 @@
             </button>
           </div>
           <div class="level-item has-text-centered">
-          <button class=" button is-primary is-responsive" @click="messageOpen = true,
+          <button class=" button is-primary is-responsive" @click="progressOpen = true,
           reportLoading = true,
           modalTitle = 'Generating SML Report',
           modalMessage = `Your SML report will open up in a new window, please don't close the app while you wait.`,

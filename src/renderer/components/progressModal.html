@@ -1,0 +1,20 @@
+<!-- requires an 'progressOpen' trigger in context -->
+<!-- Will also probably need a count of how many people to contact $store.peopleNum -->
+<div class="modal" x-show="progressOpen" :class="{'is-active': progressOpen}" x-cloak x-transition>
+    <div class="modal-background"></div>
+    <div class="modal-content">
+      <article class="message">
+        <div class="message-header">
+          <p>Message Progress</p>
+        </div>
+        <div class="message-body">
+            <p class="help">Loading people...</p>
+            <progress class="progress is-primary" value="30" :max="peopleNum ? peopleNum : 100"></progress>
+            <p class="help">Processing data...</p>
+            <progress class="progress is-info"  :max="peopleNum ? peopleNum : 100" ></progress>
+            <p class="help">Sending message...</p>
+            <progress class="progress is-success"  :max="$store.zones.length ? $store.zones.length : 7"></progress>
+        </div>
+      </article>
+    </div>
+  </div>
