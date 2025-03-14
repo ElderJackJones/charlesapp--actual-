@@ -1,8 +1,12 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const charles = require('charlesbrain')
 const path = require('node:path');
+const { EventEmitter } = require('node:stream');
 
-const Charles = new charles
+
+const emitter = new EventEmitter()
+let mainWindow
+const Charles = new charles(emitter)
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -11,7 +15,7 @@ if (require('electron-squirrel-startup')) {
 
 const createWindow = () => {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
@@ -76,11 +80,12 @@ ipcMain.handle('save/zones', async (event, args) => {
 ipcMain.handle('send/charles', async (event, args) => {
   try {
     const user = await Charles.user()
-    await Charles.test('9430682700330560', '123456', user.username, user.password)
+    await Charles.message('123456', user.username, user.password)
   } catch (e) {
-    console.log(e)
+    throw new Error(e)
   }
 })
+
 
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -94,3 +99,25 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+
+
+// Emitter handle
+
+emitter.on('person/update', (data) => {
+  mainWindow.webContents.send('person/update')
+})
+emitter.on('person/begin', (data) => {
+  mainWindow.webContents.send('person/begin', data)
+})
+emitter.on('person/complete', (data) => {
+  mainWindow.webContents.send('person/complete')
+})
+emitter.on('message/begin', (data) => {
+  mainWindow.webContents.send('message/begin', data)
+})
+emitter.on('message/sent', (data) => {
+  mainWindow.webContents.send('message/sent')
+})
+emitter.on('message/complete', (data) => {
+  mainWindow.webContents.send('message/complete')
+})

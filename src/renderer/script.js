@@ -10,6 +10,43 @@ document.addEventListener('alpine:init', async () => {
     
 })
 
+window.api.personBegin((data) => {
+    const progress = document.getElementById('peeps')
+    progress.value = 0
+    progress.max = data
+})
+
+window.api.personUpdate((data) => {
+    const progress = document.getElementById('peeps')
+    progress.value = progress.value + 1
+})
+
+window.api.personComplete((data) => {
+    const helper = document.getElementById('peepHelper')
+    helper.textContent = 'Load people'
+    helper.classList.add('is-primary')
+})
+
+window.api.messageBegin((data) => {
+    const progress = document.getElementById('zoneys')
+    progress.value = 0
+    progress.max = data
+})
+window.api.messageSent((data) => {
+    const progress = document.getElementById('zoneys')
+    progress.value = progress.value + 1
+})
+window.api.messageComplete((data) => {
+    const helper = document.getElementById('zoneysHelper')
+    helper.textContent = 'Message sent'
+    helper.classList.add('is-success')
+})
+
+
+
+
+
+
 const login = async (username, userpassword, botmail, botpass, $data) => {
     console.log($data)
     const userObj = {

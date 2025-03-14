@@ -8,12 +8,11 @@
           <p>Message Progress</p>
         </div>
         <div class="message-body">
-            <p class="help">Loading people...</p>
-            <progress class="progress is-primary" value="30" :max="peopleNum ? peopleNum : 100"></progress>
-            <p class="help">Processing data...</p>
-            <progress class="progress is-info"  :max="peopleNum ? peopleNum : 100" ></progress>
-            <p class="help">Sending message...</p>
-            <progress class="progress is-success"  :max="$store.zones.length ? $store.zones.length : 7"></progress>
+            <p class="help" id="peepHelper">Loading people...</p>
+            <progress class="progress is-primary" id="peeps" :max="$store.peopleNum ? $store.peopleNum : 100" x-ref="peopleProgress" x-init="
+            if ($store.personProgress === null) $el.removeAttribute('value')"></progress>
+            <p class="help" id="zoneysHelper">Sending message...</p>
+            <progress class="progress is-success" id="zoneys">></progress>
         </div>
       </article>
     </div>
