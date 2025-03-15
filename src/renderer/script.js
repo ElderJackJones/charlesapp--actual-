@@ -1,4 +1,4 @@
-document.addEventListener('alpine:init', async () => {
+const zones = async () => {
     Alpine.store('zones', [])
     const zones = await window.api.requestZones()
     if (zones) {
@@ -6,8 +6,10 @@ document.addEventListener('alpine:init', async () => {
     } else {
         Alpine.store('loginError', true)
     }
+}
 
-    
+document.addEventListener('alpine:init', async () => {
+    await zones()  
 })
 
 window.api.personBegin((data) => {
@@ -36,7 +38,7 @@ window.api.messageSent(async (data) => {
     const progress = document.getElementById('zoneys')
     for (let i = 0; i < 100; i++) {
         progress.value = progress.value + 1
-        await new Promise((r) => setTimeout(r, 10))
+        await new Promise((r) => setTimeout(r, 8))
     }
 })
 window.api.messageComplete((data) => {
