@@ -96,13 +96,7 @@ showNotification(msg) {
         
           <div class="level-item has-text-centered">
 
-            <button class=" button is-primary is-responsive " @click="progressOpen = true, 
-            messageLoading = true, 
-            modalTitle = 'Message in Progress', 
-            modalMessage = `Please don't close the app while this is loading...`,
-            modalColor = 'is-info',
-            charlesMessage()"
-            :class="messageLoading ? 'is-loading' : ''">
+            <button class=" button is-primary is-responsive " @click="progressOpen = true" :class="messageLoading ? 'is-loading' : ''">
 
               <span class="icon is-medium ">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">

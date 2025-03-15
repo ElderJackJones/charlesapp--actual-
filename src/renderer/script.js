@@ -30,16 +30,20 @@ window.api.personComplete((data) => {
 window.api.messageBegin((data) => {
     const progress = document.getElementById('zoneys')
     progress.value = 0
-    progress.max = data
+    progress.max = data * 100
 })
-window.api.messageSent((data) => {
+window.api.messageSent(async (data) => {
     const progress = document.getElementById('zoneys')
-    progress.value = progress.value + 1
+    for (let i = 0; i < 100; i++) {
+        progress.value = progress.value + 1
+        await new Promise((r) => setTimeout(r, 10))
+    }
 })
 window.api.messageComplete((data) => {
     const helper = document.getElementById('zoneysHelper')
     helper.textContent = 'Message sent'
     helper.classList.add('is-success')
+    Alpine.store('processComplete', true)
 })
 
 
@@ -78,9 +82,9 @@ const sendZones = async (zones, $data) => {
     }
 }
 
-const charlesMessage = async () => {
+const charlesMessage = async (e2ee) => {
     try {
-        await window.api.charles()
+        await window.api.charles(e2ee)
     } catch (e) {
         console.log(e)
     }

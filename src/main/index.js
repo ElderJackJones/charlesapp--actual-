@@ -80,7 +80,7 @@ ipcMain.handle('save/zones', async (event, args) => {
 ipcMain.handle('send/charles', async (event, args) => {
   try {
     const user = await Charles.user()
-    await Charles.message('123456', user.username, user.password)
+    await Charles.message(args, user.username, user.password)
   } catch (e) {
     throw new Error(e)
   }
