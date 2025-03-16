@@ -25,7 +25,7 @@ getIconColor(area) {
             </header>
             <section class="modal-card-body">
                 <div class="list">
-                    <template x-if="!$store.areas">
+                    <template x-if="$store.areas?.length <= 0">
                         <div class="skeleton-block">
                             Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
   Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
@@ -36,7 +36,7 @@ getIconColor(area) {
   nibh ultricies vehicula ut id elit.
                         </div>
                     </template>
-                    <template x-for="area in $store.areas">
+                    <template x-if="$store.areas?.length > 0" x-for="area in $store.areas">
                         <div class="box media">
                             <div class="media-left">
                                 <span class="icon is-large" x-bind:class="getIconColor(area)">

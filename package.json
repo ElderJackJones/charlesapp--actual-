@@ -20,7 +20,8 @@
   "dependencies": {
     "alpinejs": "^3.14.8",
     "charlesbrain": "^2.2.3",
-    "electron-squirrel-startup": "^1.0.1"
+    "electron-squirrel-startup": "^1.0.1",
+    "node-fetch": "^2.7.0"
   },
   "devDependencies": {
     "@electron-forge/cli": "^7.7.0",

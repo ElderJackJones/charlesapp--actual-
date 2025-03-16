@@ -12,7 +12,8 @@ const WINDOW_API = {
     personComplete: (callback) => ipcRenderer.on('person/complete', (_event, data) => callback(data)),
     messageBegin: (callback) => ipcRenderer.on('message/begin', (_event, data) => callback(data)),
     messageSent: (callback) => ipcRenderer.on('message/sent', (_event, data) => callback(data)),
-    messageComplete: (callback) => ipcRenderer.on('message/complete', (_event, data) => callback(data))
+    messageComplete: (callback) => ipcRenderer.on('message/complete', (_event, data) => callback(data)),
+    requestReport: () => ipcRenderer.invoke('get/report')
 }
 
 contextBridge.exposeInMainWorld('api', WINDOW_API)

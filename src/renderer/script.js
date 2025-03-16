@@ -1,3 +1,5 @@
+
+
 const zones = async () => {
     Alpine.store('zones', [])
     const zones = await window.api.requestZones()
@@ -9,8 +11,20 @@ const zones = async () => {
 }
 
 document.addEventListener('alpine:init', async () => {
+    Alpine.store('zones', [])
     await zones()  
 })
+
+const getReport = async () => {
+    Alpine.store('areas', [])
+    console.log('requesting report')
+    const reportThings = await window.api.requestReport()
+    console.log('report\n', reportThings)
+    Alpine.store('areas', reportThings)
+}
+
+
+
 
 window.api.personBegin((data) => {
     const progress = document.getElementById('peeps')
@@ -92,3 +106,4 @@ const charlesMessage = async (e2ee) => {
     }
     
 }
+
