@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <script src="./script.js"></script>
   <style>
     [x-cloak] { display: none !important; }
@@ -83,6 +84,7 @@ showNotification(msg) {
         loadingZones: false,
         progressOpen: false,
         peopleNum: undefined,
+        smlOpen: false
       }" id="dataEnv">
       <div class="columns is-centered">
       <div class="column is-full" style="min-width: max-content;">
@@ -93,7 +95,8 @@ showNotification(msg) {
           <div x-html="(await axios.get('./components/modal.html')).data"></div>
           <div x-html="(await axios.get('./components/settings.html')).data"></div>
           <div x-html="(await axios.get('./components/progressModal.html')).data"></div>
-        
+          <div x-html="(await axios.get('./components/smlReportModal.html')).data"></div>
+
           <div class="level-item has-text-centered">
 
             <button class=" button is-primary is-responsive " @click="progressOpen = true" :class="messageLoading ? 'is-loading' : ''">
@@ -109,12 +112,8 @@ showNotification(msg) {
             </button>
           </div>
           <div class="level-item has-text-centered">
-          <button class=" button is-primary is-responsive" @click="progressOpen = true,
-          reportLoading = true,
-          modalTitle = 'Generating SML Report',
-          modalMessage = `Your SML report will open up in a new window, please don't close the app while you wait.`,
-          modalColor = 'is-danger'
-          " :class="reportLoading ? 'is-loading' : ''">
+          <button class=" button is-primary is-responsive" @click="smlOpen = true"
+           :class="reportLoading ? 'is-loading' : ''">
             <span class="icon is-medium ">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-data-fill" viewBox="0 0 16 16">
                 <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
