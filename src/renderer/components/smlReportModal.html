@@ -57,7 +57,7 @@ isValidArea(area) {
             </section>
             <footer class="modal-card-foot">
                 <div class="buttons">
-                  <button class="button is-info">Copy text</button>
+                  <button class="button is-info" @click="addToClipboard($store.areas)" x-bind:disabled="!$store.areas || $store.areas.length <= 0">Copy text</button>
                   <button class="button" @click="smlOpen = false">Close</button>
                 </div>
               </footer>

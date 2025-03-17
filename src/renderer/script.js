@@ -107,3 +107,11 @@ const charlesMessage = async (e2ee) => {
     
 }
 
+const addToClipboard = async (arrayOfStrings) => {
+    let message = ""
+    for (area of arrayOfStrings) {
+        message += area 
+        message += "\n"
+    }
+    await navigator.clipboard.writeText(message)
+}
