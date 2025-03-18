@@ -107,11 +107,23 @@ const charlesMessage = async (e2ee) => {
     
 }
 
-const addToClipboard = async (arrayOfStrings) => {
+const addToClipboard = async (arrayOfStrings, search) => {
+    console.log(search)
     let message = ""
-    for (area of arrayOfStrings) {
+    for (let area of arrayOfStrings) {
+        if (search) {
+            if (area.toLowerCase().includes(search.toLowerCase())) {
+                message += area
+                message += "\n"
+                continue
+            } else {
+                continue
+            }
+        }
+        else {
         message += area 
         message += "\n"
+        }
     }
     await navigator.clipboard.writeText(message)
 }
