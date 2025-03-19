@@ -39,8 +39,7 @@ window.api.personUpdate((data) => {
 
 window.api.personComplete((data) => {
     const helper = document.getElementById('peepHelper')
-    helper.textContent = 'Load people'
-    helper.classList.add('is-primary')
+    helper.innerHTML = '<i class="bi bi-check"></i> Load people'
 })
 
 window.api.messageBegin((data) => {
@@ -57,8 +56,7 @@ window.api.messageSent(async (data) => {
 })
 window.api.messageComplete((data) => {
     const helper = document.getElementById('zoneysHelper')
-    helper.textContent = 'Message sent'
-    helper.classList.add('is-success')
+    helper.innerHTML = '<i class="bi bi-check"></i> Message sent'
     Alpine.store('processComplete', true)
 })
 
@@ -126,4 +124,8 @@ const addToClipboard = async (arrayOfStrings, search) => {
         }
     }
     await navigator.clipboard.writeText(message)
+}
+
+const closeIt = () => {
+    window.api.closeWindow()
 }

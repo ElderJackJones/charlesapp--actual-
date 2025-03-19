@@ -17,7 +17,10 @@ const createWindow = () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 800,
-    height: 600,
+    height: 600,  
+    resizable: false,
+    frame: false,
+    transparent: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
@@ -125,3 +128,7 @@ emitter.on('message/sent', (data) => {
 emitter.on('message/complete', (data) => {
   mainWindow.webContents.send('message/complete')
 })
+
+ipcMain.on('close/window', () => {
+  app.quit()
+});

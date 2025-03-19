@@ -13,7 +13,8 @@ const WINDOW_API = {
     messageBegin: (callback) => ipcRenderer.on('message/begin', (_event, data) => callback(data)),
     messageSent: (callback) => ipcRenderer.on('message/sent', (_event, data) => callback(data)),
     messageComplete: (callback) => ipcRenderer.on('message/complete', (_event, data) => callback(data)),
-    requestReport: () => ipcRenderer.invoke('get/report')
+    requestReport: () => ipcRenderer.invoke('get/report'),
+    closeWindow: () => ipcRenderer.send('close/window')
 }
 
 contextBridge.exposeInMainWorld('api', WINDOW_API)

@@ -1,8 +1,36 @@
 <!-- requires an 'progressOpen' trigger in context -->
 <!-- Will also probably need a count of how many people to contact $store.peopleNum -->
-<div class="modal" x-show="progressOpen" :class="{'is-active': progressOpen}" x-cloak x-transition>
-    <div class="modal-background"></div>
-    <div class="modal-content">
+<dialog class="modal" x-init="$watch('progressOpen', () => { 
+  if (progressOpen) {
+    $el.showModal()
+  }
+})" x-data="{e2ee : ''}">
+    <div class="modal-box">
+      <form method="dialog">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" @click="progressOpen = false">✕</button>
+      </form>
+      <h3 class="text-lg font-bold">Charles Message</h3>
+      <div class="flex flex-col gap-4 mt-4">
+        <!-- Input Field -->
+      <div class="w-full flex items-center gap-2 mb-5">
+        <input type="text" placeholder="E2ee pin" class="input input-xs" style="width: 100%" x-model="e2ee"/>
+        <button class="btn btn-square btn-xs" @click="charlesMessage(e2ee)">
+          <i class="bi bi-send-fill"></i>        
+        </button>
+      </div>
+        <!-- Progress Bars -->
+         <div class="flex flex-col gap-1">
+          <p class="text-sm font-serif mb-0 leading-none" id="peepHelper"> Loading people...</p>
+          <progress class="progress mb-5" id="peeps" 
+              :max="$store.peopleNum ? $store.peopleNum : 100" 
+              x-ref="peopleProgress" 
+              x-init="if ($store.personProgress === null) $el.removeAttribute('value')">
+          </progress>
+          <p class="text-sm font-serif leading-none mb-0" id="zoneysHelper">Sending message...</p>
+          <progress class="progress mb-5" id="zoneys"></progress>
+         </div>
+    </div>
+    <!-- </div>
       <article class="message">
         <div class="message-header" x-data="{e2ee : '', open: true}">
           <p>Message Progress</p>
@@ -24,6 +52,5 @@
             <p class="help" id="zoneysHelper">Sending message...</p>
             <progress class="progress is-success" id="zoneys">></progress>
         </div>
-      </article>
-    </div>
-  </div>
+      </article> -->
+  </dialog>
