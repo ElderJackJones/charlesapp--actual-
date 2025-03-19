@@ -17,7 +17,7 @@
 
   </style>
 </head>
-<body data-theme="lofi" style="height: 100vh;" class="bg-[url(blurred.png)]" x-data="{progressOpen : false}">
+<body x-init="$store.alerts = []" data-theme="lofi" style="height: 100vh;" class="bg-[url(blurred.png)]" x-data="{progressOpen : false}">
 
   <div x-html="(await axios.get('./components/progressModal.html')).data"></div>
 
@@ -46,6 +46,18 @@
     <div class="tooltip tooltip-right" data-tip="Change settings (obvi)">
       <button class="btn btn-accent">Settings</button>
     </div>
+  </div>
+  <div class="toast toast-start">
+
+    <!-- requires an alert object with a color and content. Will take care of mounting and disposing. -->
+
+   <template x-for="alert in $store.alerts">
+      <div class="alert" :class="alert.color" x-init="setTimeout(() => {
+        $store.alerts.splice($store.alerts.indexOf(alert), 1)
+      }, 5000)">
+        <span x-text="alert.content"></span>
+      </div>
+   </template>
   </div>
 </body>
 </html>
