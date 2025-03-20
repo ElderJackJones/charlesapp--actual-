@@ -1,5 +1,4 @@
 
-
 const zones = async () => {
     Alpine.store('zones', [])
     const zones = await window.api.requestZones()
@@ -75,11 +74,9 @@ const login = async (username, userpassword, botmail, botpass, $data) => {
     }
     const worked = await window.api.saveLogin(userObj)
     if (worked) {
-        $data.notification.classes = 'notification is-success'
-        $data.showNotification('<strong>Login Saved!</strong>') 
+        Alpine.store('alerts').push({color: 'alert-success', content: 'Charles has your identity 🥸'})
     } else {
-        $data.notification.classes = 'notification is-danger'
-        $data.showNotification('<strong>Login not saved due to error!</strong>') 
+        Alpine.store('alerts').push({color: 'alert-danger', content: 'Something died...'})
     }
 }
 
@@ -88,11 +85,9 @@ const sendZones = async (zones, $data) => {
     const success = await window.api.sendZones(zones)
     console.log('after success')
     if (success) {
-        $data.notification.classes = 'notification is-success'
-        $data.showNotification('<strong>Charles is looking over your little ID eggs</strong>') 
+        Alpine.store('alerts').push({color: 'alert-success', content: '<strong>Charles is looking over your little ID eggs</strong>'})
     } else {
-        $data.notification.classes = 'notification is-danger'
-        $data.showNotification("<strong>😱 #askedForAFish--gotASerpent </strong>") 
+        Alpine.store('alert').push({color: 'alert-danger', content: "<strong>😱 #askedForAFish--gotASerpent </strong>"})
     }
 }
 

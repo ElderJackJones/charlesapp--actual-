@@ -13,13 +13,16 @@
   <script src="script.js"></script>
 
   <style>
+
     [x-cloak] { display: none !important; }
 
   </style>
 </head>
-<body x-init="$store.alerts = []" data-theme="lofi" style="height: 100vh;" class="bg-[url(blurred.png)]" x-data="{progressOpen : false}">
+<body x-init="$store.alerts = []" data-theme="lofi" style="height: 100vh;" class="bg-[url(blurred.png)]" x-data="{progressOpen : false, open: false}">
 
   <div x-html="(await axios.get('./components/progressModal.html')).data"></div>
+  <div x-html="(await axios.get('./components/settings.html')).data"></div>
+
 
   <button class="btn btn-ghost btn-circle absolute top-2 right-2" @click="closeIt()"><i class="bi bi-x"></i></button>
   <div class="flex justify-center pt-6">
@@ -44,10 +47,10 @@
       <button class="btn btn-accent">Custom Message</button>
     </div>
     <div class="tooltip tooltip-right" data-tip="Change settings (obvi)">
-      <button class="btn btn-accent">Settings</button>
+      <button class="btn btn-accent" @click="open = true">Settings</button>
     </div>
   </div>
-  <div class="toast toast-start">
+  <div class="toast toast-start z-50">
 
     <!-- requires an alert object with a color and content. Will take care of mounting and disposing. -->
 
@@ -61,3 +64,4 @@
   </div>
 </body>
 </html>
+ 
