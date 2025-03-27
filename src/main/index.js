@@ -133,3 +133,10 @@ emitter.on('message/complete', (data) => {
 ipcMain.on('close/window', () => {
   app.quit()
 });
+
+ipcMain.handle('send/test', async (event, args) => {
+  const user = await Charles.user()
+  console.log(user)
+  console.log(args)
+  await Charles.test(args[1], args[0], user.username, user.password)
+})

@@ -1,89 +1,3 @@
-<!-- requires an 'smlOpen' trigger in context -->
-<!-- <div class="modal" x-show="smlOpen" :class="{'is-active': smlOpen}" x-cloak x-transition x-data="{loading: false, getIconClass(area) {
-        if (area.includes('🔥')) return 'bi bi-fire';
-        if (area.includes('⌛')) return 'bi bi-arrow-through-heart-fill';
-        if (area.includes('😱')) return 'bi bi-hourglass';
-        return 'bi bi-emoji-frown-fill'; 
-},
-getIconColor(area) {
-    if (area.includes('🔥')) return 'has-text-danger';
-        if (area.includes('⌛')) return 'has-text-warning';
-        if (area.includes('😱')) return 'has-text-primary';
-        return 'bi bi-emoji-frown-fill'; 
-},
-isValidArea(area) {
-    // Filter out falsy values and ensure the area is a non-empty string
-    return typeof area === 'string' && area.trim().length > 0;
-},
-search: ''}">
-    <div class="modal-background" x-on:click="smlOpen = false"></div>
-    <div class="modal-content" >
-        <div class="modal-card">
-            <header class="modal-card-head">
-                    <p class="modal-card-title"><strong>SML Report</strong></p>
-                    <button class="delete" @click="smlOpen = false"></button>
-            </header>
-            
-            <section class="modal-card-body">
-                <div class="list">
-                    <template x-if="$store.areas?.length <= 0">
-                        <div class="skeleton-block">
-                            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-  Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
-  ut fermentum massa justo sit amet risus. Donec sed odio dui.
-  Nullam quis risus eget urna mollis ornare vel eu leo.
-  Cum sociis natoque penatibus et magnis dis parturient montes,
-  nascetur ridiculus mus. Nullam id dolor id
-  nibh ultricies vehicula ut id elit.
-                        </div>
-                    </template>
-                    <template x-for="area in $store.areas?.filter(area => area.trim().length > 0).filter(area => !search || area.toLowerCase().includes(search.toLowerCase()))">
-                        <div class="box media">
-                            <div class="media-left">
-                                <span class="icon is-large" x-bind:class="getIconColor(area)">
-                                    <i x-bind:class="getIconClass(area)"></i>
-                                </span>
-                            </div>
-                            <div class="media-content">
-                                <p class="title is-6" x-text="area.split(':')[0].replace(/^[^\w]+/, '').trim()"></p>
-                                <p class="subtitle is-7" x-text="'Average Contact Time: ' + area.split(':')[1]"></p>
-                            </div>
-                        </div>
-                    </template>
-                </div>
-            </section>
-            <footer class="modal-card-foot">
-                <div class="level" style="width: 100%">
-                    <div class="level-left">
-                        <div class="level-item">
-                            <div class="buttons">
-                                <button class="button is-info" @click="addToClipboard($store.areas, search)" x-bind:disabled="!$store.areas || $store.areas.length <= 0">Copy text</button>
-
-                                <button class="button" @click="smlOpen = false">Close</button>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="level-right">
-                        <div class="level-item">
-                            <div class="field">
-                                <div class="control has-icons-left">
-                                    <input type="text" class="input is-info" placeholder="Search" x-model="search">
-                                    <span class="icon is-left">
-                                        <i class="bi bi-search"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-              </footer>
-        </div>
-
-          </div>
-        </div> -->
-
 <dialog class="modal" x-init="$watch('smlOpen', () => {
     if (smlOpen) {
         $el.showModal()
@@ -115,7 +29,7 @@ search: ''}">
     <ul class="list bg-base-100 rounded-box shadow-md max-h-[50vh] overflow-auto">
         <template x-for="area in $store.areas?.filter(area => area.trim().length > 0).filter(area => !search || area.toLowerCase().includes(search.toLowerCase()))">
             <li class="list-row">
-                <span class="size-10 rounded-box justify-center justify-self-center">
+                <span class="size-10 rounded-box flex items-center justify-center">
                     <i x-bind:class="getIconClass(area)"></i>
                 </span>
                 <div class="flex flex-col">

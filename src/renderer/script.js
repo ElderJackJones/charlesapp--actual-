@@ -124,3 +124,11 @@ const addToClipboard = async (arrayOfStrings, search) => {
 const closeIt = () => {
     window.api.closeWindow()
 }
+
+const testMessage = async (e2ee, id) => {
+    try {
+        await window.api.test([e2ee, id])
+    } catch (e) {
+        console.log(e)
+    }
+}

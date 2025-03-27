@@ -31,11 +31,13 @@
 
   </style>
 </head>
-<body x-init="$store.alerts = []" data-theme="lofi" style="height: 100vh;" class="bg-[url(blurred.png)]" x-data="{progressOpen : false, open: false, smlOpen : false}">
+<body x-init="$store.alerts = []" data-theme="lofi" style="height: 100vh;" class="bg-[url(blurred.png)]" x-data="{progressOpen : false, open: false, smlOpen : false, testingOpen : false}">
 
   <div x-html="(await axios.get('./components/progressModal.html')).data"></div>
   <div x-html="(await axios.get('./components/settings.html')).data"></div>
   <div x-html="(await axios.get('./components/smlReportModal.html')).data"></div>
+  <div x-html="(await axios.get('./components/testingModal.html')).data"></div>
+
 
 
   <button class="btn btn-ghost btn-circle absolute top-2 right-2" @click="closeIt()"><i class="bi bi-x"></i></button>
@@ -52,7 +54,7 @@
       <button class="btn btn-accent" @click="smlOpen = true">SML Report</button>
     </div>
     <div class="tooltip tooltip-left" data-tip="Send a message to only one chat">
-      <button class="btn btn-accent">Test Run</button>
+      <button class="btn btn-accent" @click="testingOpen = true">Test Run</button>
     </div>
     <div class="tooltip tooltip-right" data-tip="Send a message to all zone chats">
       <button class="btn btn-accent">Broadcast</button>
