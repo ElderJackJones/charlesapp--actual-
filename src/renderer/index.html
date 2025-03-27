@@ -16,12 +16,26 @@
 
     [x-cloak] { display: none !important; }
 
+    ::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
   </style>
 </head>
-<body x-init="$store.alerts = []" data-theme="lofi" style="height: 100vh;" class="bg-[url(blurred.png)]" x-data="{progressOpen : false, open: false}">
+<body x-init="$store.alerts = []" data-theme="lofi" style="height: 100vh;" class="bg-[url(blurred.png)]" x-data="{progressOpen : false, open: false, smlOpen : false}">
 
   <div x-html="(await axios.get('./components/progressModal.html')).data"></div>
   <div x-html="(await axios.get('./components/settings.html')).data"></div>
+  <div x-html="(await axios.get('./components/smlReportModal.html')).data"></div>
 
 
   <button class="btn btn-ghost btn-circle absolute top-2 right-2" @click="closeIt()"><i class="bi bi-x"></i></button>
@@ -35,7 +49,7 @@
       <button class="btn btn-accent" @click="progressOpen = true">Charles Message</button>
     </div>
     <div class="tooltip tooltip-right" data-tip="Average contact time of all areas">
-      <button class="btn btn-accent">SML Report</button>
+      <button class="btn btn-accent" @click="smlOpen = true">SML Report</button>
     </div>
     <div class="tooltip tooltip-left" data-tip="Send a message to only one chat">
       <button class="btn btn-accent">Test Run</button>
