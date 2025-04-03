@@ -20,14 +20,14 @@
         </div>
           <!-- Progress Bars -->
            <div class="flex flex-col gap-1">
-            <p class="text-sm font-serif mb-0 leading-none" id="peepHelper"> Loading people...</p>
-            <progress class="progress mb-5" id="peeps" 
+            <p class="text-sm font-serif mb-0 leading-none" id="peepHelperTest"> Loading people...</p>
+            <progress class="progress mb-5" id="peepsTest" 
                 :max="$store.peopleNum ? $store.peopleNum : 100" 
                 x-ref="peopleProgress" 
                 x-init="if ($store.personProgress === null) $el.removeAttribute('value')">
             </progress>
-            <p class="text-sm font-serif leading-none mb-0" id="zoneysHelper">Sending message...</p>
-            <progress class="progress mb-5" id="zoneys"></progress>
+            <p class="text-sm font-serif leading-none mb-0" id="zoneysHelperTest">Sending message...</p>
+            <progress class="progress mb-5" id="zoneysTest"></progress>
            </div>
       </div>
     </dialog>

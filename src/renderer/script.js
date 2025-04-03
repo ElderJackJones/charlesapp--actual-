@@ -26,35 +26,53 @@ const getReport = async () => {
 
 
 window.api.personBegin((data) => {
-    const progress = document.getElementById('peeps')
+    let progress = document.getElementById('peeps')
+    if (!progress.checkVisibility()) {
+        progress = document.getElementById('peepsTest')
+    }
     progress.value = 0
     progress.max = data
 })
 
 window.api.personUpdate((data) => {
-    const progress = document.getElementById('peeps')
+    let progress = document.getElementById('peeps')
+    if (!progress.checkVisibility()) {
+        progress = document.getElementById('peepsTest')
+    }
     progress.value = progress.value + 1
 })
 
 window.api.personComplete((data) => {
-    const helper = document.getElementById('peepHelper')
+    let helper = document.getElementById('peepHelper')
+    if (!helper.checkVisibility()) {
+        helper = document.getElementById('peepHelperTest')
+    }
     helper.innerHTML = '<i class="bi bi-check"></i> Load people'
 })
 
 window.api.messageBegin((data) => {
-    const progress = document.getElementById('zoneys')
+    let progress = document.getElementById('zoneys')
+    if (!progress.checkVisibility()) {
+        progress = document.getElementById('zoneysTest')
+    }
     progress.value = 0
     progress.max = data * 100
 })
 window.api.messageSent(async (data) => {
-    const progress = document.getElementById('zoneys')
+    let progress = document.getElementById('zoneys')
+    if (!progress.checkVisibility()) {
+        progress = document.getElementById('zoneysTest')
+    }
     for (let i = 0; i < 100; i++) {
         progress.value = progress.value + 1
         await new Promise((r) => setTimeout(r, 8))
     }
 })
 window.api.messageComplete((data) => {
-    const helper = document.getElementById('zoneysHelper')
+    let helper = document.getElementById('zoneysHelper')
+    if (!helper.checkVisibility()) {
+        helper = document.getElementById('zoneysHelperTest')
+    }
     helper.innerHTML = '<i class="bi bi-check"></i> Message sent'
     Alpine.store('processComplete', true)
 })
@@ -65,7 +83,6 @@ window.api.messageComplete((data) => {
 
 
 const login = async (username, userpassword, botmail, botpass, $data) => {
-    console.log($data)
     const userObj = {
         username: username,
         password: userpassword,

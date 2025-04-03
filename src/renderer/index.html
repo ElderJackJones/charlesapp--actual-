@@ -33,10 +33,11 @@
 </head>
 <body x-init="$store.alerts = []" data-theme="lofi" style="height: 100vh;" class="bg-[url(blurred.png)]" x-data="{progressOpen : false, open: false, smlOpen : false, testingOpen : false}">
 
-  <div x-html="(await axios.get('./components/progressModal.html')).data"></div>
+  <div x-bind:style="progressOpen ? 'content-visibility: visible;' : 'content-visibility: hidden;'" x-html="(await axios.get('./components/progressModal.html')).data"></div>
   <div x-html="(await axios.get('./components/settings.html')).data"></div>
   <div x-html="(await axios.get('./components/smlReportModal.html')).data"></div>
   <div x-html="(await axios.get('./components/testingModal.html')).data"></div>
+  <div x-html="(await axios.get('./components/broadcast.html')).data"></div>
 
 
 
