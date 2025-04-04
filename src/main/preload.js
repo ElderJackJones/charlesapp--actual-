@@ -15,6 +15,7 @@ const WINDOW_API = {
     messageComplete: (callback) => ipcRenderer.on('message/complete', (_event, data) => callback(data)),
     requestReport: () => ipcRenderer.invoke('get/report'),
     closeWindow: () => ipcRenderer.send('close/window'),
+    broadcast: (args) => ipcRenderer.invoke('send/broadcast', args),
     test: (args) => ipcRenderer.invoke('send/test', args)
 }
 

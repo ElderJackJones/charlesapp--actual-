@@ -51,17 +51,30 @@ window.api.personComplete((data) => {
 })
 
 window.api.messageBegin((data) => {
-    let progress = document.getElementById('zoneys')
-    if (!progress.checkVisibility()) {
+    let progress
+    if (Alpine.data.progressOpen) {
+        progress = document.getElementById('zoneys')
+    } else if (Alpine.data.testingOpen) {
         progress = document.getElementById('zoneysTest')
+    } else if (Alpine.data.broadcast) {
+        progress = document.getElementById('broadcastBar')
+    } else {
+        console.error('No open modal :(')
     }
+
     progress.value = 0
     progress.max = data * 100
 })
 window.api.messageSent(async (data) => {
-    let progress = document.getElementById('zoneys')
-    if (!progress.checkVisibility()) {
+    let progress
+    if (Alpine.data.progressOpen) {
+        progress = document.getElementById('zoneys')
+    } else if (Alpine.data.testingOpen) {
         progress = document.getElementById('zoneysTest')
+    } else if (Alpine.data.broadcast) {
+        progress = document.getElementById('broadcastBar')
+    } else {
+        console.error('No open modal :(')
     }
     for (let i = 0; i < 100; i++) {
         progress.value = progress.value + 1
@@ -69,10 +82,17 @@ window.api.messageSent(async (data) => {
     }
 })
 window.api.messageComplete((data) => {
-    let helper = document.getElementById('zoneysHelper')
-    if (!helper.checkVisibility()) {
+    let helper
+    if (Alpine.data.progressOpen) {
+        helper = document.getElementById('zoneysHelper')
+    } else if (Alpine.data.testingOpen) {
         helper = document.getElementById('zoneysHelperTest')
+    } else if (Alpine.data.broadcast) {
+        helper = document.getElementById('broadcastMessage')
+    } else {
+        console.error('No open modal :(')
     }
+
     helper.innerHTML = '<i class="bi bi-check"></i> Message sent'
     Alpine.store('processComplete', true)
 })
@@ -102,9 +122,9 @@ const sendZones = async (zones, $data) => {
     const success = await window.api.sendZones(zones)
     console.log('after success')
     if (success) {
-        Alpine.store('alerts').push({color: 'alert-success', content: '<strong>Charles is looking over your little ID eggs</strong>'})
+        Alpine.store('alerts').push({color: 'alert-success', content: 'Charles is looking over your little ID eggs'})
     } else {
-        Alpine.store('alert').push({color: 'alert-danger', content: "<strong>😱 #askedForAFish--gotASerpent </strong>"})
+        Alpine.store('alert').push({color: 'alert-danger', content: "😱 #askedForAFish--gotASerpent"})
     }
 }
 
@@ -140,6 +160,14 @@ const addToClipboard = async (arrayOfStrings, search) => {
 
 const closeIt = () => {
     window.api.closeWindow()
+}
+
+const broadcast = async (e2ee, msg) => {
+    try {
+        await window.api.broadcast([e2ee, msg])
+    } catch (e) {
+        console.log(e)
+    }
 }
 
 const testMessage = async (e2ee, id) => {

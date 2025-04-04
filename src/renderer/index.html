@@ -31,7 +31,7 @@
 
   </style>
 </head>
-<body x-init="$store.alerts = []" data-theme="lofi" style="height: 100vh;" class="bg-[url(blurred.png)]" x-data="{progressOpen : false, open: false, smlOpen : false, testingOpen : false}">
+<body x-init="$store.alerts = []" data-theme="lofi" style="height: 100vh;" class="bg-[url(blurred.png)]" x-data="{progressOpen : false, open: false, smlOpen : false, testingOpen : false, broadcast : false}">
 
   <div x-bind:style="progressOpen ? 'content-visibility: visible;' : 'content-visibility: hidden;'" x-html="(await axios.get('./components/progressModal.html')).data"></div>
   <div x-html="(await axios.get('./components/settings.html')).data"></div>
@@ -58,7 +58,7 @@
       <button class="btn btn-accent" @click="testingOpen = true">Test Run</button>
     </div>
     <div class="tooltip tooltip-right" data-tip="Send a message to all zone chats">
-      <button class="btn btn-accent">Broadcast</button>
+      <button class="btn btn-accent" @click="broadcast = true" >Broadcast</button>
     </div>
     <div class="tooltip tooltip-bottom" data-tip="Add a custom message to report">
       <button class="btn btn-accent">Custom Message</button>
@@ -67,7 +67,8 @@
       <button class="btn btn-accent" @click="open = true">Settings</button>
     </div>
   </div>
-  <div class="toast toast-start z-50">
+</body>
+<div class="toast toast-start">
 
     <!-- requires an alert object with a color and content. Will take care of mounting and disposing. -->
 
@@ -79,6 +80,5 @@
       </div>
    </template>
   </div>
-</body>
 </html>
  

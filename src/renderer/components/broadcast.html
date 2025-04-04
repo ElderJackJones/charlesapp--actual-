@@ -1,12 +1,11 @@
-<!-- <dialog class="modal" x-init="$watch('broadcast', () => { 
+<dialog class="modal" x-init="$watch('broadcast', () => { 
     if (broadcast) {
       $el.showModal()
     }
-  })" x-data="{e2ee : '', msg: ''}"> -->
-  <dialog class="modal" x-init="$el.showModal()" x-data="{e2ee: '', msg: ''}">
+  })" x-data="{e2ee : '', msg: ''}">
       <div class="modal-box">
         <form method="dialog">
-          <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" @click="testingOpen = false">✕</button>
+          <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" @click="broadcast = false">✕</button>
         </form>
         <h3 class="text-lg font-bold">Broadcast</h3>
         <div class="flex flex-col gap-4 mt-4">
@@ -17,7 +16,7 @@
             <div class="w-full flex items-center gap-2 flex-row">
 
                 <input type="text" placeholder="E2ee pin" class="input input-xs" style="width: 100%" x-model="e2ee"/>
-                <button class="btn btn-xs" @click="testMessage(e2ee, msg)">
+                <button :disabled="(msg.length <= 0 || e2ee <= 0)" class="btn btn-xs" @click="broadcast(e2ee, msg)">
                   <p>Send</p>
                   <i class="bi bi-send-fill"></i>        
                 </button>
@@ -25,8 +24,8 @@
         </div>
           <!-- Progress Bars -->
            <div class="flex flex-col gap-1">
-            <p class="text-sm font-serif leading-none mb-0" id="zoneysHelper">Sending message...</p>
-            <progress class="progress mb-5" id="zoneys"></progress>
+            <p class="text-sm font-serif leading-none mb-0" id="broadcastMessage">Sending message...</p>
+            <progress class="progress mb-5" id="broadcastBar"></progress>
            </div>
       </div>
     </dialog>
