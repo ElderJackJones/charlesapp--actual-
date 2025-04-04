@@ -68,12 +68,12 @@
     </div>
   </div>
 </body>
-<div class="toast toast-start">
+<div class="toast toast-start z-[9999]">
 
     <!-- requires an alert object with a color and content. Will take care of mounting and disposing. -->
 
    <template x-for="alert in $store.alerts">
-      <div class="alert" :class="alert.color" x-init="setTimeout(() => {
+      <div x-transition class="alert" :class="alert.color" x-init="setTimeout(() => {
         $store.alerts.splice($store.alerts.indexOf(alert), 1)
       }, 5000)">
         <span x-text="alert.content"></span>

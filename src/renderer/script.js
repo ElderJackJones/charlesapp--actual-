@@ -1,4 +1,3 @@
-
 const zones = async () => {
     Alpine.store('zones', [])
     const zones = await window.api.requestZones()
@@ -52,11 +51,11 @@ window.api.personComplete((data) => {
 
 window.api.messageBegin((data) => {
     let progress
-    if (Alpine.data.progressOpen) {
+    if (Alpine.store('process') === 'message') {
         progress = document.getElementById('zoneys')
-    } else if (Alpine.data.testingOpen) {
+    } else if (Alpine.store('process') === 'test') {
         progress = document.getElementById('zoneysTest')
-    } else if (Alpine.data.broadcast) {
+    } else if (Alpine.store('process') === 'broadcast') {
         progress = document.getElementById('broadcastBar')
     } else {
         console.error('No open modal :(')
@@ -67,11 +66,11 @@ window.api.messageBegin((data) => {
 })
 window.api.messageSent(async (data) => {
     let progress
-    if (Alpine.data.progressOpen) {
+    if (Alpine.store('process') === 'message') {
         progress = document.getElementById('zoneys')
-    } else if (Alpine.data.testingOpen) {
+    } else if (Alpine.store('process') === 'test') {
         progress = document.getElementById('zoneysTest')
-    } else if (Alpine.data.broadcast) {
+    } else if (Alpine.store('process') === 'broadcast') {
         progress = document.getElementById('broadcastBar')
     } else {
         console.error('No open modal :(')
@@ -83,11 +82,11 @@ window.api.messageSent(async (data) => {
 })
 window.api.messageComplete((data) => {
     let helper
-    if (Alpine.data.progressOpen) {
+    if (Alpine.store('process') === 'message') {
         helper = document.getElementById('zoneysHelper')
-    } else if (Alpine.data.testingOpen) {
+    } else if (Alpine.store('process') === 'test') {
         helper = document.getElementById('zoneysHelperTest')
-    } else if (Alpine.data.broadcast) {
+    } else if (Alpine.store('process') === 'broadcast') {
         helper = document.getElementById('broadcastMessage')
     } else {
         console.error('No open modal :(')
@@ -124,12 +123,13 @@ const sendZones = async (zones, $data) => {
     if (success) {
         Alpine.store('alerts').push({color: 'alert-success', content: 'Charles is looking over your little ID eggs'})
     } else {
-        Alpine.store('alert').push({color: 'alert-danger', content: "😱 #askedForAFish--gotASerpent"})
+        Alpine.store('alerts').push({color: 'alert-danger', content: "😱 #askedForAFish--gotASerpent"})
     }
 }
 
 const charlesMessage = async (e2ee) => {
     try {
+        Alpine.store('process', 'message')
         await window.api.charles(e2ee)
     } catch (e) {
         console.log(e)
@@ -162,8 +162,9 @@ const closeIt = () => {
     window.api.closeWindow()
 }
 
-const broadcast = async (e2ee, msg) => {
+const broadcastSend = async (e2ee, msg) => {
     try {
+        Alpine.store('process', 'broadcast')
         await window.api.broadcast([e2ee, msg])
     } catch (e) {
         console.log(e)
@@ -172,6 +173,7 @@ const broadcast = async (e2ee, msg) => {
 
 const testMessage = async (e2ee, id) => {
     try {
+        Alpine.store('process', 'test')
         await window.api.test([e2ee, id])
     } catch (e) {
         console.log(e)

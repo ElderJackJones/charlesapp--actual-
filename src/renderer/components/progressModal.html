@@ -1,14 +1,11 @@
 <!-- requires an 'progressOpen' trigger in context -->
 <!-- Will also probably need a count of how many people to contact $store.peopleNum -->
-<dialog class="modal" x-init="$watch('progressOpen', () => { 
+<div id="progressModal" class="modal" x-init="$watch('progressOpen', () => { 
   if (progressOpen) {
-    $el.showModal()
+    $el.classList.add('modal-open')
   }
 })" x-data="{e2ee : ''}">
     <div class="modal-box">
-      <form method="dialog">
-        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" @click="progressOpen = false">✕</button>
-      </form>
       <h3 class="text-lg font-bold">Charles Message</h3>
       <div class="flex flex-col gap-4 mt-4">
         <!-- Input Field -->
@@ -30,4 +27,7 @@
           <progress class="progress mb-5" id="zoneys"></progress>
          </div>
     </div>
-  </dialog>
+    <form method="dialog" class="modal-backdrop">
+      <button @click="progressOpen = false; document.getElementById('progressModal').classList.remove('modal-open')">close</button>
+  </form>
+  </div>

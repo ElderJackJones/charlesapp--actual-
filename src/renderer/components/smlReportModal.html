@@ -1,6 +1,6 @@
-<dialog class="modal" x-init="$watch('smlOpen', () => {
+<div id="smlReportModal" class="modal" x-init="$watch('smlOpen', () => {
     if (smlOpen) {
-        $el.showModal()
+        $el.classList.add('modal-open')
         getReport()
     }
 });" x-cloak x-transition x-data="{loading: false, getIconClass(area) {
@@ -45,6 +45,6 @@ search: ''}">
     </div>
   </div>
   <form method="dialog" class="modal-backdrop">
-    <button @click="smlOpen = false">close</button>
+    <button @click="smlOpen = false; document.getElementById('smlReportModal').classList.remove('modal-open')">close</button>
 </form>
-</dialog>
+</div>

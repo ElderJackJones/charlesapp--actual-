@@ -1,8 +1,8 @@
-<dialog class="modal" x-init="
+<div id="settings" class="modal" x-init="
 $store.loginError = false;
 $watch('open', () => {
     if (open) {
-        $el.showModal()
+        $el.classList.add('modal-open')
         zones()
     }
 }); $watch('$store.loginError', () => {
@@ -38,6 +38,6 @@ $watch('open', () => {
         </div>
     </div>
     <form method="dialog" class="modal-backdrop">
-        <button @click="open = false">close</button>
+        <button @click="open = false; document.getElementById('settings').classList.remove('modal-open')">close</button>
     </form>
-</dialog>
+</div>
