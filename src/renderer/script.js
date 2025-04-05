@@ -25,27 +25,42 @@ const getReport = async () => {
 
 
 window.api.personBegin((data) => {
-    let progress = document.getElementById('peeps')
-    if (!progress.checkVisibility()) {
+    let progress
+    if (Alpine.store('process') == 'message') {
+        progress = document.getElementById('peeps')
+    } else if (Alpine.store('process') == 'test') {
         progress = document.getElementById('peepsTest')
+    } else if (Alpine.store('process') == 'custom') {
+        progress = document.getElementById('customPeeps')
     }
     progress.value = 0
     progress.max = data
 })
 
 window.api.personUpdate((data) => {
-    let progress = document.getElementById('peeps')
-    if (!progress.checkVisibility()) {
+    let progress
+    if (Alpine.store('process') == 'message') {
+        progress = document.getElementById('peeps')
+    } else if (Alpine.store('process') == 'test') {
         progress = document.getElementById('peepsTest')
+
+    } else if (Alpine.store('process') == 'custom') {
+        progress = document.getElementById('customPeeps')
     }
     progress.value = progress.value + 1
 })
 
 window.api.personComplete((data) => {
-    let helper = document.getElementById('peepHelper')
-    if (!helper.checkVisibility()) {
+    let helper
+    const process = Alpine.store('process')
+    if (process === 'message') {
+        helper = document.getElementById('peepHelper')
+    } else if (process === 'test') {
         helper = document.getElementById('peepHelperTest')
+    } else if (process === 'custom') {
+        helper = document.getElementById('customPeepsHelper')
     }
+
     helper.innerHTML = '<i class="bi bi-check"></i> Load people'
 })
 
@@ -57,8 +72,8 @@ window.api.messageBegin((data) => {
         progress = document.getElementById('zoneysTest')
     } else if (Alpine.store('process') === 'broadcast') {
         progress = document.getElementById('broadcastBar')
-    } else {
-        console.error('No open modal :(')
+    } else if (Alpine.store('process') === 'custom') {
+        progress = document.getElementById('customZoneys')
     }
 
     progress.value = 0
@@ -72,8 +87,8 @@ window.api.messageSent(async (data) => {
         progress = document.getElementById('zoneysTest')
     } else if (Alpine.store('process') === 'broadcast') {
         progress = document.getElementById('broadcastBar')
-    } else {
-        console.error('No open modal :(')
+    } else if (Alpine.store('process') === 'custom') {
+        progress = document.getElementById('customZoneysHelper')
     }
     for (let i = 0; i < 100; i++) {
         progress.value = progress.value + 1
@@ -88,8 +103,8 @@ window.api.messageComplete((data) => {
         helper = document.getElementById('zoneysHelperTest')
     } else if (Alpine.store('process') === 'broadcast') {
         helper = document.getElementById('broadcastMessage')
-    } else {
-        console.error('No open modal :(')
+    } else if (Alpine.store('process') === 'custom') {
+        helper = document.getElementById('customZoneysHelper')
     }
 
     helper.innerHTML = '<i class="bi bi-check"></i> Message sent'
@@ -175,6 +190,15 @@ const testMessage = async (e2ee, id) => {
     try {
         Alpine.store('process', 'test')
         await window.api.test([e2ee, id])
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+const custom = async (e2ee, msg) => {
+    try {
+        Alpine.store('process', 'custom')
+        await window.api.custom([e2ee, msg])
     } catch (e) {
         console.log(e)
     }

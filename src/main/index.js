@@ -140,3 +140,8 @@ ipcMain.handle('send/test', async (event, args) => {
   const user = await Charles.user()
   await Charles.test(args[1], args[0], user.username, user.password)
 })
+
+ipcMain.handle('send/custom', async (event, args) => {
+  const user = await Charles.user()
+  await Charles.customMessage(args[0], args[1], user.username, user.password)
+})

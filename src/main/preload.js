@@ -16,7 +16,8 @@ const WINDOW_API = {
     requestReport: () => ipcRenderer.invoke('get/report'),
     closeWindow: () => ipcRenderer.send('close/window'),
     broadcast: (args) => ipcRenderer.invoke('send/broadcast', args),
-    test: (args) => ipcRenderer.invoke('send/test', args)
+    test: (args) => ipcRenderer.invoke('send/test', args),
+    custom: (args) => ipcRenderer.invoke('send/custom', args)
 }
 
 contextBridge.exposeInMainWorld('api', WINDOW_API)

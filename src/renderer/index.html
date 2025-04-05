@@ -16,28 +16,26 @@
 
     [x-cloak] { display: none !important; }
 
+    /* For WebKit browsers */
     ::-webkit-scrollbar {
-  width: 6px;
-}
+        width: 6px !important; /* Adjust width as needed */
+    }
 
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 10px;
-}
+    ::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.2) !important; /* Subtle color */
+        border-radius: 3px !important; /* Rounded corners */
+    }
 
   </style>
 </head>
-<body x-init="$store.alerts = []" data-theme="lofi" style="height: 100vh;" class="bg-[url(blurred.png)]" x-data="{progressOpen : false, open: false, smlOpen : false, testingOpen : false, broadcast : false}">
+<body x-init="$store.alerts = []" data-theme="lofi" style="height: 100vh;" class="bg-[url(blurred.png)]" x-data="{progressOpen : false, open: false, smlOpen : false, testingOpen : false, broadcast : false, customOpen: false}">
 
   <div x-bind:style="progressOpen ? 'content-visibility: visible;' : 'content-visibility: hidden;'" x-html="(await axios.get('./components/progressModal.html')).data"></div>
   <div x-html="(await axios.get('./components/settings.html')).data"></div>
   <div x-html="(await axios.get('./components/smlReportModal.html')).data"></div>
   <div x-html="(await axios.get('./components/testingModal.html')).data"></div>
   <div x-html="(await axios.get('./components/broadcast.html')).data"></div>
+  <div x-html="(await axios.get('./components/customMessage.html')).data"></div>
 
 
 
@@ -61,7 +59,7 @@
       <button class="btn btn-accent" @click="broadcast = true" >Broadcast</button>
     </div>
     <div class="tooltip tooltip-bottom" data-tip="Add a custom message to report">
-      <button class="btn btn-accent">Custom Message</button>
+      <button class="btn btn-accent" @click="customOpen = true" >Custom Message</button>
     </div>
     <div class="tooltip tooltip-right" data-tip="Change settings (obvi)">
       <button class="btn btn-accent" @click="open = true">Settings</button>
