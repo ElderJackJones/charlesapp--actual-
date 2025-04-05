@@ -41,8 +41,16 @@
 
   <button class="btn btn-ghost btn-circle absolute top-2 right-2" @click="closeIt()"><i class="bi bi-x"></i></button>
   <div class="flex justify-center pt-6">
-    <div class="p-4 glass w-5/6 flex justify-center" style="border-radius: 10px; -webkit-app-region: drag;">
-      <h1 class=" text-4xl font-sans antialiased font-bold font-stretch-extra-expanded">Charles Control</h1>
+    <div class="p-4 glass w-5/6 flex justify-center" style="border-radius: 10px; -webkit-app-region: drag;" x-data="{greetings: ['Good Morning!', 'Happy Naptime', 'Good Afternoon!', 'Twighlight Session'], hours: 0, greeting: ''}" x-init="hours = new Date(Date.now()).getHours()">
+      <h1 class=" text-4xl font-sans antialiased font-bold font-stretch-extra-expanded" x-init="if (hours < 11) {
+        greeting = greetings[0]
+      } else if (hours > 11 && hours < 14) {
+        greeting = greetings[1]
+      } else if (hours > 14 && hours < 21) {
+        greeting = greetings[2]
+      } else {
+        greeting = greetings[3]
+      }" x-text="greeting"></h1>
     </div>
   </div>
   <div class="glass fixed left-1/2 transform -translate-x-1/2 top-32 rounded-lg flex flex-wrap justify-center gap-4 p-10">
