@@ -28,20 +28,24 @@
   <div class="flex justify-center pt-6">
     <div class="p-4 glass w-5/6 flex justify-center" style="border-radius: 10px; -webkit-app-region: drag;"
      x-data="{
-       greetings: ['Good Morning!', 'Happy Naptime', 'Good Afternoon!', 'Twilight Session'],
+       greetings: ['Good Morning!', 'Second Breakfast?', 'Happy Naptime', 'Good Afternoon!', 'Dinna Sesh', 'Twilight Session'],
        hours: 0,
-       greeting: ''
+       greeting: 'Welcome!'
      }"
      x-init="
        hours = new Date().getHours();
-       if (hours < 11) {
+       if (hours < 10) {
          greeting = greetings[0];
-       } else if (hours >= 11 && hours < 14) {
+       } else if (hours >= 10 && hours < 12) {
          greeting = greetings[1];
-       } else if (hours >= 14 && hours < 21) {
+       } else if (hours >= 12 && hours < 13) {
          greeting = greetings[2];
-       } else {
+       } else if (hours >= 13 && hours < 17) {
          greeting = greetings[3];
+       } else if (hours >= 17 && hours < 18) {
+        greeting = greetings[4]
+       } else if (hours >= 21 && hours < 23 ) {
+        greeting = greetings[5]
        }
      ">
   <h1 class="text-4xl font-sans antialiased font-bold font-stretch-extra-expanded" x-text="greeting"></h1>

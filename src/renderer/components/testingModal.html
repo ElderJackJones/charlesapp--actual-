@@ -11,7 +11,7 @@
         <div class="w-full flex items-center gap-2 mb-5">
           <input type="text" placeholder="E2ee pin" class="input input-xs" style="width: 50%" x-model="e2ee"/>
           <input type="text" placeholder="Test chat ID" class="input input-xs" style="width: 50%" x-model="id"/>
-          <button class="btn btn-square btn-xs" @click="testMessage(e2ee, id)">
+          <button :disabled="!$store.process" class="btn btn-square btn-xs" @click="testMessage(e2ee, id)">
             <i class="bi bi-send-fill"></i>        
           </button>
         </div>

@@ -15,7 +15,7 @@
           <div class="w-full flex items-center gap-2 flex-row">
 
               <input type="text" placeholder="E2ee pin" class="input input-xs" style="width: 100%" x-model="e2ee"/>
-              <button :disabled="(msg.length <= 0 || e2ee <= 0)" class="btn btn-xs" @click="custom(e2ee, msg)">
+              <button :disabled="(msg.length <= 0 || e2ee <= 0) && !$store.process" class="btn btn-xs" @click="custom(e2ee, msg)">
                 <p>Send</p>
                 <i class="bi bi-send-fill"></i>        
               </button>

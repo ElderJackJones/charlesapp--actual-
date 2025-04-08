@@ -192,9 +192,7 @@ const login = async (username, userpassword, botmail, botpass) => {
 }
 
 const sendZones = async (zones, $data) => {
-    console.log('before success')
     const success = await window.api.sendZones(zones)
-    console.log('after success')
     if (success) {
         Alpine.store('alerts').push({color: 'alert-success', content: 'Charles is looking over your little ID eggs'})
     } else {
@@ -206,6 +204,7 @@ const charlesMessage = async (e2ee) => {
     try {
         Alpine.store('process', 'message')
         await window.api.charles(e2ee)
+        Alpine.store('process', null)
     } catch (e) {
         console.log(e)
     }
@@ -241,6 +240,7 @@ const broadcastSend = async (e2ee, msg) => {
     try {
         Alpine.store('process', 'broadcast')
         await window.api.broadcast([e2ee, msg])
+        Alpine.store('process', null)
     } catch (e) {
         console.log(e)
     }
@@ -250,6 +250,7 @@ const testMessage = async (e2ee, id) => {
     try {
         Alpine.store('process', 'test')
         await window.api.test([e2ee, id])
+        Alpine.store('process', null)
     } catch (e) {
         console.log(e)
     }
@@ -259,6 +260,7 @@ const custom = async (e2ee, msg) => {
     try {
         Alpine.store('process', 'custom')
         await window.api.custom([e2ee, msg])
+        Alpine.store('process', null)
     } catch (e) {
         console.log(e)
     }
