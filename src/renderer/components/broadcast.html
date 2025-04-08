@@ -1,0 +1,33 @@
+<div id="broadcast" class="modal" x-init="$watch('broadcast', () => { 
+    if (broadcast) {
+      $el.classList.add('modal-open')
+    }
+  })" x-data="{e2ee : '', msg: ''}">
+      <div class="modal-box">
+        <h3 class="text-lg font-bold">Broadcast</h3>
+        <div class="flex flex-col gap-4 mt-4">
+          <!-- Input Field -->
+        <div class="w-full flex items-center gap-2 mb-3 flex-col">
+
+            <textarea class=" textarea w-full" x-model="msg" placeholder="Message" class="textarea textarea-sm"></textarea>
+            <div class="w-full flex items-center gap-2 flex-row">
+
+                <input type="text" placeholder="E2ee pin" class="input input-xs" style="width: 100%" x-model="e2ee"/>
+                <button :disabled="(msg.length <= 0 || e2ee <= 0)" class="btn btn-xs" @click="broadcastSend(e2ee, msg)">
+                  <p>Send</p>
+                  <i class="bi bi-send-fill"></i>        
+                </button>
+              </div>  
+        </div>
+          <!-- Progress Bars -->
+           <div class="flex flex-col gap-1">
+            <p class="text-sm font-serif leading-none mb-0" id="broadcastMessage">Sending message...</p>
+            <progress class="progress mb-5" id="broadcastBar"></progress>
+           </div>
+      </div>
+
+    </div>
+    <form method="dialog" class="modal-backdrop">
+      <button @click="broadcast = false; document.getElementById('broadcast').classList.remove('modal-open')">close</button>
+  </form>
+  </div>

@@ -1,0 +1,50 @@
+<div id="smlReportModal" class="modal" x-init="$watch('smlOpen', () => {
+    if (smlOpen) {
+        $el.classList.add('modal-open')
+        getReport()
+    }
+});" x-cloak x-transition x-data="{loading: false, getIconClass(area) {
+    if (area.includes('🔥')) return 'bi bi-fire';
+    if (area.includes('⌛')) return 'bi bi-arrow-through-heart-fill';
+    if (area.includes('😱')) return 'bi bi-hourglass';
+    return 'bi bi-emoji-frown-fill'; 
+},
+getIconColor(area) {
+if (area.includes('🔥')) return 'has-text-danger';
+    if (area.includes('⌛')) return 'has-text-warning';
+    if (area.includes('😱')) return 'has-text-primary';
+    return 'bi bi-emoji-frown-fill'; 
+},
+isValidArea(area) {
+// Filter out falsy values and ensure the area is a non-empty string
+return typeof area === 'string' && area.trim().length > 0;
+},
+search: ''}">
+  <div class="modal-box">
+
+    <h3 class="text-lg font-bold">SML Report</h3>
+    <div x-show="$store.areas?.length <= 0" class="p-20 flex flex-col justify-center justify-self-center">
+        <span class="loading loading-infinity loading-xl"></span>
+    </div>
+    <ul class="list bg-base-100 rounded-box shadow-md max-h-[50vh] overflow-auto">
+        <template x-for="area in $store.areas?.filter(area => area.trim().length > 0).filter(area => !search || area.toLowerCase().includes(search.toLowerCase()))">
+            <li class="list-row">
+                <span class="size-10 rounded-box flex items-center justify-center">
+                    <i x-bind:class="getIconClass(area)"></i>
+                </span>
+                <div class="flex flex-col">
+                    <div x-text="area.split(':')[0].replace(/^[^\w]+/, '').trim()"></div>
+                    <div class="text-xs uppercase font-semibold opacity-60" x-text="'Average Contact Time: ' + area.split(':')[1]"></div>
+                </div>
+            </li>
+        </template>
+    </ul>
+    <div class="flex flex-row w-full gap-4 mt-2">
+        <input type="text" placeholder="Search" class="input w-full" x-model="search">
+        <button class="btn" @click="addToClipboard($store.areas, search)" x-bind:disabled="!$store.areas || $store.areas.length <= 0">Copy Text</button>
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button @click="smlOpen = false; document.getElementById('smlReportModal').classList.remove('modal-open')">close</button>
+</form>
+</div>

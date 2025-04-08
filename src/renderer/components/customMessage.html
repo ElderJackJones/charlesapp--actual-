@@ -1,0 +1,40 @@
+<!-- requires an 'customOpen' trigger in context -->
+<!-- Will also probably need a count of how many people to contact $store.peopleNum -->
+<div id="customModal" class="modal" x-init="$watch('customOpen', () => { 
+  if (customOpen) {
+    $el.classList.add('modal-open')
+  }
+})" x-data="{e2ee : '', msg: ''}">
+    <div class="modal-box">
+      <h3 class="text-lg font-bold">Custom Charles Message</h3>
+      <div class="flex flex-col gap-4 mt-4">
+        <!-- Input Field -->
+        <div class="w-full flex items-center gap-2 mb-3 flex-col">
+
+          <textarea class=" textarea w-full" x-model="msg" placeholder="Message" class="textarea textarea-sm"></textarea>
+          <div class="w-full flex items-center gap-2 flex-row">
+
+              <input type="text" placeholder="E2ee pin" class="input input-xs" style="width: 100%" x-model="e2ee"/>
+              <button :disabled="(msg.length <= 0 || e2ee <= 0)" class="btn btn-xs" @click="custom(e2ee, msg)">
+                <p>Send</p>
+                <i class="bi bi-send-fill"></i>        
+              </button>
+            </div>  
+      </div>
+        <!-- Progress Bars -->
+         <div class="flex flex-col gap-1">
+          <p class="text-sm font-serif mb-0 leading-none" id="customPeepsHelper"> Loading people...</p>
+          <progress class="progress mb-5" id="customPeeps" 
+              :max="$store.peopleNum ? $store.peopleNum : 100" 
+              x-ref="customPeopleProgress" 
+              x-init="if ($store.personProgress === null) $el.removeAttribute('value')">
+          </progress>
+          <p class="text-sm font-serif leading-none mb-0" id="customZoneysHelper">Sending message...</p>
+          <progress class="progress mb-5" id="customZoneys"></progress>
+         </div>
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button @click="customOpen = false; document.getElementById('customModal').classList.remove('modal-open')">close</button>
+</form>
+</div>

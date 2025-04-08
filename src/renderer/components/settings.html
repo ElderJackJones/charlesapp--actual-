@@ -1,0 +1,67 @@
+<div id="settings" class="modal w-full" x-init="
+$store.loginError = false;
+$watch('open', () => {
+    if (open) {
+        $el.classList.add('modal-open')
+        zones()
+    }
+}); $watch('$store.loginError', () => {
+    if ($store.loginError) {
+        $store.alerts.push({color: 'alert-warning', content: 'Login to retrieve Zone data'})
+    }
+});">
+    <div class="modal-box max-h-[75vh] overflow-auto" x-data="{zoneData: {}, username: '', userpassword: '', botmail: '', botpass: ''}">
+        <h3 class="text-lg font-bold mb-5">Settings</h3>
+        <form class="flex flex-col gap-3">
+            <input style="width: 100%;" x-model="username" type="text" class="input" required placeholder="Church Username">
+            <input style="width: 100%;" x-model="userpassword" type="password" class="input" required placeholder="Church Password">
+            <input style="width: 100%;" x-model="botmail" type="email" class="input validator" required placeholder="Bot Email">
+            <input style="width: 100%;" x-model="botpass" type="password" class="input" required placeholder="Bot Password">
+        </form>
+        <div class="w-full flex items-center gap-2 flex-row mt-2">
+            <div class="w-full flex items-center gap-2 flex-row mt-2" x-data>
+                <div class="dropdown dropdown-top">
+                  <div tabindex="0" role="button" class="btn">
+                    Theme
+                    <i class="bi bi-arrow-up-short"></i>
+                  </div>
+                  <ul tabindex="0" class="dropdown-content bg-base-300 rounded-box z-1 w-52 p-2 shadow-2xl">
+                    <template x-for="theme in ['lofi', 'forest', 'night', 'nord', 'sunset', 'synthwave', 'bumblebee']" :key="theme">
+                      <li>
+                        <input
+                          type="radio"
+                          name="theme-dropdown"
+                          class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
+                          :aria-label="theme"
+                          :value="theme"
+                          :checked="$store.theme === theme"
+                          @change="$store.theme = theme; localStorage.setItem('theme', theme)"
+                        />
+                      </li>
+                    </template>
+                  </ul>
+                </div>         
+            <button class="btn flex-grow" @click="login(username, userpassword, botmail, botpass); $store.loginError = false; zones();">Save</button>
+        </div>
+        </div>
+
+        <div class="divider mt-5">ZONES</div>
+        <div x-show="Object.keys($store.zones).length > 0">
+            <form class="flex flex-col gap-3">
+                <template x-for="zone in $store.zones">
+                    <div class="flex flex-col w-full">
+                        <label class="text-xs font-sans mb-0" x-text="zone"></label>
+                        <input type="text" class="input w-full" x-model="zoneData[zone]">
+                    </div>
+                </template>
+            </form>
+            <button class="btn mt-3 w-full" @click="sendZones(JSON.parse(JSON.stringify(zoneData)), $data)">Submit</button>
+        </div>
+        <div x-show="Object.keys($store.zones).length === 0" class="flex justify-center">
+            <span class="loading loading-infinity loading-xl"></span>
+        </div>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+        <button @click="open = false; document.getElementById('settings').classList.remove('modal-open')">close</button>
+    </form>
+</div>
