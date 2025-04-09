@@ -6,21 +6,23 @@ window.addEventListener('offline', () => {
     window.location.href = 'offline.html';
   });
 
-document.addEventListener('alpine:init', async () => {
+document.addEventListener('alpine:init', () => {
     // Optional: set a default if it's not set elsewhere
-    Alpine.store('theme', 'lofi');
-    
-    Alpine.store('isDarkTheme', () => {
-      const theme = Alpine.store('theme');
-      return ['dark', 'forest', 'dracula', 'night', 'sunset', 'synthwave'].includes(theme);
-    });
-
-    await retrieveTheme()
+    console.log('init')
+    Alpine.store('process', false);
+    Alpine.store('alerts', [])
+    Alpine.store('zones', {})
+    Alpine.store('theme', {
+        theme: 'lofi',
+        isDarkTheme (theme) {
+            return ['dark', 'forest', 'dracula', 'night', 'sunset', 'synthwave'].includes(theme);
+          }
+    }) 
 });
 
 const retrieveTheme = async () => {
     const theme = await window.api.getTheme()
-    Alpine.store('theme', theme)
+    Alpine.store('theme').theme = theme
 }
 
 const getNetwork = async () => {
@@ -42,11 +44,6 @@ const zones = async () => {
         Alpine.store('loginError', true)
     }
 }
-
-document.addEventListener('alpine:init', async () => {
-    Alpine.store('zones', [])
-    await zones()  
-})
 
 const getReport = async () => {
     Alpine.store('areas', [])
@@ -181,7 +178,7 @@ const login = async (username, userpassword, botmail, botpass) => {
         password: userpassword || null,
         botname: botmail || null,
         botpassword: botpass || null,
-        theme: Alpine.store('theme')
+        theme: Alpine.store('theme').theme
     }
     const worked = await window.api.saveLogin(userObj)
     if (worked) {
@@ -204,7 +201,7 @@ const charlesMessage = async (e2ee) => {
     try {
         Alpine.store('process', 'message')
         await window.api.charles(e2ee)
-        Alpine.store('process', null)
+        Alpine.store('process', false)
     } catch (e) {
         console.log(e)
     }
@@ -240,7 +237,7 @@ const broadcastSend = async (e2ee, msg) => {
     try {
         Alpine.store('process', 'broadcast')
         await window.api.broadcast([e2ee, msg])
-        Alpine.store('process', null)
+        Alpine.store('process', false)
     } catch (e) {
         console.log(e)
     }
@@ -250,7 +247,7 @@ const testMessage = async (e2ee, id) => {
     try {
         Alpine.store('process', 'test')
         await window.api.test([e2ee, id])
-        Alpine.store('process', null)
+        Alpine.store('process', false)
     } catch (e) {
         console.log(e)
     }
@@ -260,7 +257,7 @@ const custom = async (e2ee, msg) => {
     try {
         Alpine.store('process', 'custom')
         await window.api.custom([e2ee, msg])
-        Alpine.store('process', null)
+        Alpine.store('process', false)
     } catch (e) {
         console.log(e)
     }

@@ -13,7 +13,7 @@
   <script src="script.js"></script>
   <link rel="stylesheet" href="./styles.css">
 </head>
-<body x-init="$store.alerts = []; getNetwork();" :data-theme="$store.theme" style="height: 100vh; width: 100vw !important;" :class="$store.isDarkTheme() ? 'bg-[url(dark.png)]' : 'bg-[url(blurred.png)]'" x-data="{progressOpen : false, open: false, smlOpen : false, testingOpen : false, broadcast : false, customOpen: false}">
+<body x-init="retrieveTheme();" :data-theme="$store.theme.theme" style="height: 100vh; width: 100vw !important;" :class="$store.theme.isDarkTheme($store.theme.theme) ? 'bg-[url(dark.png)]' : 'bg-[url(blurred.png)]'" x-data="{progressOpen : false, open: false, smlOpen : false, testingOpen : false, broadcast : false, customOpen: false}">
 
   <div x-bind:style="progressOpen ? 'content-visibility: visible;' : 'content-visibility: hidden;'" x-html="(await axios.get('./components/progressModal.html')).data"></div>
   <div x-html="(await axios.get('./components/settings.html')).data"></div>

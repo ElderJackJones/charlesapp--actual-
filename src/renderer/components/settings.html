@@ -34,8 +34,8 @@ $watch('open', () => {
                           class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
                           :aria-label="theme"
                           :value="theme"
-                          :checked="$store.theme === theme"
-                          @change="$store.theme = theme; localStorage.setItem('theme', theme)"
+                          :checked="$store.theme.theme === theme"
+                          @change="$store.theme.theme = theme"
                         />
                       </li>
                     </template>

@@ -11,7 +11,7 @@
         <!-- Input Field -->
       <div class="w-full flex items-center gap-2 mb-2">
         <input type="text" placeholder="E2ee pin" class="input" style="width: 100%" x-model="e2ee"/>
-        <button class="btn btn-square" @click="charlesMessage(e2ee)" :disabled="!$store.process">
+        <button class="btn btn-square" @click="charlesMessage(e2ee)" :disabled="$store.process">
           <i class="bi bi-send-fill"></i>        
         </button>
       </div>
