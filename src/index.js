@@ -3,10 +3,29 @@ const ChromeLauncher = require('chrome-launcher')
 const path = require('node:path');
 const { EventEmitter } = require('node:stream');
 const charles = require('charlesbrain');
+const log = require('electron-log')
+
+Object.assign(console, log)
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
+}
+
+if (process.argv.includes('--squirrel-uninstall')) {
+  const appDataPath = path.join(app.getPath("appData"), 'resources');
+
+  try {
+    fs.rmSync(appDataPath, { recursive: true, force: true });
+    console.log('Deleted app data folder:', appDataPath);
+  } catch (err) {
+    console.error('Failed to delete app data folder:', err);
+  }
+
+  // Optionally create and write to a log file
+  // Then quit
+  app.quit();
+  return;
 }
 
 let mainWindow
