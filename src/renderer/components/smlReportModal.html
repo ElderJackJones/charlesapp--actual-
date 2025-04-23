@@ -41,7 +41,9 @@ search: ''}">
     </ul>
     <div class="flex flex-row w-full gap-4 mt-2">
         <input type="text" placeholder="Search" class="input w-full" x-model="search">
-        <button class="btn" @click="addToClipboard($store.areas, search)" x-bind:disabled="!$store.areas || !$store.areas?.length <= 0">Copy Text</button>
+        <button class="btn" @click="addToClipboard($store.areas, search); $el.innerText = 'Copied!'; setTimeout(() => {
+            $el.innerText = 'Copy Text'
+        }, 5000)" x-bind:disabled="!$store.areas || $store.areas?.length === 0">Copy Text</button>
     </div>
   </div>
   <form method="dialog" class="modal-backdrop">

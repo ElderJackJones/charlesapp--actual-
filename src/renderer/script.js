@@ -46,6 +46,9 @@ const zones = async () => {
 }
 
 const getReport = async () => {
+    if (Alpine.store('areas')?.length > 0) {
+        return
+    }
     Alpine.store('areas', [])
     console.log('requesting report')
     Alpine.store('alerts').push({color: 'alert-info', content: "Don't close the window, this'll take a while... 👉👈"})

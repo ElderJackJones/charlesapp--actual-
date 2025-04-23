@@ -135,7 +135,8 @@ ipcMain.handle('send/charles', async (event, args) => {
 
 ipcMain.handle('get/report', async (event, args) => {
   try {
-    let areas = await Charles.report()
+    const user = await Charles.user()
+    let areas = await Charles.report(user.username, user.password)
     return areas
   }
   catch (e) {
