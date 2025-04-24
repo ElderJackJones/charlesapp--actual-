@@ -147,7 +147,7 @@ window.api.messageSent(async (data) => {
     } else if (Alpine.store('process') === 'broadcast') {
         progress = document.getElementById('broadcastBar')
     } else if (Alpine.store('process') === 'custom') {
-        progress = document.getElementById('customZoneysHelper')
+        progress = document.getElementById('customZoneys')
     }
     for (let i = 0; i < 100; i++) {
         progress.value = progress.value + 1
