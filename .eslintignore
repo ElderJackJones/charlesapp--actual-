@@ -1,0 +1,8 @@
+node_modules/
+out/
+dist/
+build/
+*.min.js
+coverage/
+.nyc_output/
+*.log
